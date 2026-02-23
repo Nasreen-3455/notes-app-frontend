@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import "./index.css";
 
+const BASE_URL = "https://notes-app-backend-9u9b.onrender.com";
+
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +18,7 @@ function App() {
   const loginUser = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${BASE_URL}/api/auth/login`,
         { email, password }
       );
 
@@ -33,7 +35,7 @@ function App() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/notes",
+        `${BASE_URL}/api/notes`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,7 +57,7 @@ function App() {
       if (editingId) {
         // UPDATE
         await axios.put(
-          `http://localhost:5000/api/notes/${editingId}`,
+          `${BASE_URL}/api/notes/${editingId}`,
           { title, content },
           {
             headers: {
@@ -66,7 +68,7 @@ function App() {
       } else {
         // CREATE
         await axios.post(
-          "http://localhost:5000/api/notes",
+          `${BASE_URL}/api/notes`,
           { title, content },
           {
             headers: {
@@ -91,7 +93,7 @@ function App() {
       const token = localStorage.getItem("token");
 
       await axios.delete(
-        `http://localhost:5000/api/notes/${id}`,
+        `${BASE_URL}/api/notes/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
