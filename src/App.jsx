@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./index.css";
 
-const BASE_URL = "https://notes-app-backend-9u9b.onrender.com";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function App() {
   const [email, setEmail] = useState("");
@@ -55,7 +55,6 @@ function App() {
       const token = localStorage.getItem("token");
 
       if (editingId) {
-        // UPDATE
         await axios.put(
           `${BASE_URL}/api/notes/${editingId}`,
           { title, content },
@@ -66,7 +65,6 @@ function App() {
           }
         );
       } else {
-        // CREATE
         await axios.post(
           `${BASE_URL}/api/notes`,
           { title, content },
@@ -116,7 +114,6 @@ function App() {
 
   return (
     <div className="app-container">
-
       {/* LEFT PANEL */}
       <div className="left-panel">
         <div className="card">
@@ -196,7 +193,6 @@ function App() {
           </div>
         ))}
       </div>
-
     </div>
   );
 }
